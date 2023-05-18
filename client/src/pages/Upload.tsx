@@ -11,20 +11,25 @@ import { UploadZone } from './component/UploadZone';
 import styles from './main.module.css';
 
 export const UploadPage = () => {
-  const [OnlyValue, setOnlyValue] = useState<string>();
+  const [OnlyValue, setOnlyValue] = useState<string | null>(null);
   useEffect(() => {
     getId().then((data) => setOnlyValue(data.id));
   }, []);
 
+  const [UploadImage, setUploadImage] = useState<File | null>(null)
   const ImageUpload = (image: File) => {
-    console.log(image)
+    if (image.size == 200000000) { //最大サイズを超えた場合
+      alert(`画像容量が大きすぎます\n${(image.size / 1000000).toFixed(3)}MB`);
+      return;
+    }
+    setUploadImage(image);
   }
 
   return (
     <Box className={styles.mainContents}>
       {OnlyValue}
-      <UploadZone UploadFunc={ImageUpload} />
-      <UploadButton UploadFunc={ImageUpload} />
+      <UploadZone Img={UploadImage} UploadFunc={ImageUpload} />
+      <img></img>
     </Box>
   );
 };
