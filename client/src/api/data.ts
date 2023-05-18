@@ -8,3 +8,8 @@ export const getUsers = async () => {
   const response = await api.get('/getdata');
   return response.data;
 };
+
+export const getId = async () => {
+  const response = await api.get('/getId');
+  return response.data;
+};

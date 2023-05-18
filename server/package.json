@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "tsc && node built/src/server.js"
+    "start": "tsc && node dist/src/server.js"
   },
   "license": "MIT",
   "dependencies": {
