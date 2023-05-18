@@ -1,12 +1,16 @@
 //ライブラリ
-import { ChangeEventHandler } from "react"
+import { ChangeEvent } from "react"
 //mui
 import { Button } from "@mui/material"
 
-
 export const UploadButton = (props: {
-    onChange: ChangeEventHandler<HTMLInputElement>
+    UploadFunc: Function
 }) => {
+    
+    const ImageChange = async (e: ChangeEvent<HTMLInputElement>) => {    //画像読み込み
+        props.UploadFunc(e.target.files![0]);
+      }
+
     return (
         <Button
             variant="contained"
@@ -20,7 +24,7 @@ export const UploadButton = (props: {
             または写真を選択
             <input
                 type="file"
-                onChange={props.onChange}
+                onChange={ImageChange}
                 accept="image/png, image/jpeg, image/gif"
                 hidden />
         </Button>
