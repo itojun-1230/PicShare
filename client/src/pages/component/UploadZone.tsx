@@ -5,9 +5,10 @@ import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
 import { Box } from "@mui/material";
 //component
 import { UploadZoneBox } from "./UploadZoneBox";
-import { ImageButton } from "./ImageButton";
+import { ResetButton } from "./ResetButton";
 //css
 import styles from '../main.module.css';
+import { UploadButton } from "./UploadButton";
 
 export const UploadZone = (props: {
     Img: File | null,
@@ -60,7 +61,8 @@ export const UploadZone = (props: {
                     <>
                         <img src={ImgSrc} />
 
-                        <ImageButton reset={ImageReset} />
+                        <ResetButton reset={ImageReset} />
+                        <UploadButton />
                     </>
                 )}
             </Box>

@@ -1,26 +1,32 @@
+//ライブラリ
+import { ChangeEvent } from "react"
 //mui
-import { Box, IconButton, SxProps, Theme } from "@mui/material"
-import CancelIcon from '@mui/icons-material/Cancel';
-//css
-import styles from '../main.module.css';
+import { Button } from "@mui/material"
 
 export const ImageButton = (props: {
-    reset: Function
+    UploadFunc: Function
 }) => {
-
-    const ButtonStyle: SxProps<Theme> = {
-        padding: 0
-    }
+    
+    const ImageChange = async (e: ChangeEvent<HTMLInputElement>) => {    //画像読み込み
+        props.UploadFunc(e.target.files![0]);
+      }
 
     return (
-        <Box className={styles.ImageButtonBox}>
-            <IconButton onClick={() => props.reset()} >
-                <CancelIcon fontSize="large"
-                    sx={{
-                        ...ButtonStyle,
-                        color: "rgb(255, 100, 100)"
-                    }} />
-            </IconButton>
-        </Box>
+        <Button
+            variant="contained"
+            component="label"
+            sx={{
+                background: "rgb(200, 77, 150)",
+                "&:hover": {
+                    background: "rgb(200, 77, 150)"
+                }
+            }}>
+            または写真を選択
+            <input
+                type="file"
+                onChange={ImageChange}
+                accept="image/png, image/jpeg, image/gif"
+                hidden />
+        </Button>
     )
 }

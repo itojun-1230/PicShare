@@ -1,7 +1,7 @@
 //mui
 import { Box } from "@mui/material"
 //component
-import { UploadButton } from "./UploadButton";
+import { ImageButton } from "./ImageButton";
 //css
 import styles from '../main.module.css';
 
@@ -11,7 +11,7 @@ export const UploadZoneBox = (props: {
     return (
         <>
             <p>Drag & Drop</p>
-            <UploadButton UploadFunc={props.UploadFunc} />
+            <ImageButton UploadFunc={props.UploadFunc} />
         </>
     )
 }

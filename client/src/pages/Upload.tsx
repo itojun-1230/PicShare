@@ -5,7 +5,6 @@ import { getId } from '../api/data';
 //mui
 import { Box } from '@mui/material';
 //component
-import { UploadButton } from './component/UploadButton';
 import { UploadZone } from './component/UploadZone';
 //css
 import styles from './main.module.css';
