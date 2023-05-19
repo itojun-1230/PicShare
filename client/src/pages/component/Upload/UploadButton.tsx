@@ -6,7 +6,7 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //css
-import styles from '../../main.module.css';
+import styles from './upload.module.css';
 
 export const UploadButton = (props: {
     ServerUploadFunc: Function
