@@ -1,19 +1,15 @@
 //library
 import { useState, useEffect } from 'react';
-//API
-import { getId } from '../api/data';
 //mui
 import { Box } from '@mui/material';
+//api
+import { upload } from '../api/data';
 //component
 import { UploadZone } from './component/UploadZone';
 //css
 import styles from './main.module.css';
 
 export const UploadPage = () => {
-  const [OnlyValue, setOnlyValue] = useState<string | null>(null);
-  useEffect(() => {
-    getId().then((data) => setOnlyValue(data.id));
-  }, []);
 
   const [UploadImage, setUploadImage] = useState<File | null>(null)
   const ImageUpload = (image: File) => {
@@ -24,10 +20,18 @@ export const UploadPage = () => {
     setUploadImage(image);
   }
 
+  const ServerUploadFunc = () => {
+    upload(UploadImage!);
+  }
+
   return (
     <Box className={styles.mainContents}>
-      {OnlyValue}
-      <UploadZone Img={UploadImage} setUpload={setUploadImage} UploadFunc={ImageUpload} />
+      <UploadZone 
+        Img={UploadImage} 
+        setUpload={setUploadImage} 
+        ServerUploadFunc={ServerUploadFunc} 
+        UploadFunc={ImageUpload} 
+        />
     </Box>
   );
 };

@@ -13,6 +13,7 @@ import { UploadButton } from "./UploadButton";
 export const UploadZone = (props: {
     Img: File | null,
     UploadFunc: Function,
+    ServerUploadFunc: Function,
     setUpload: React.Dispatch<React.SetStateAction<File | null>>
 }) => {
 
@@ -20,7 +21,6 @@ export const UploadZone = (props: {
         if (isDragReject) { //許可されない形式がドロップされたときTrue
             return;
         }
-        console.log(event)
         props.UploadFunc(acceptedFiles[0]);
     };
     const { isDragReject, getRootProps } = useDropzone({  //Drop検知イベント呼び出し
@@ -62,7 +62,7 @@ export const UploadZone = (props: {
                         <img src={ImgSrc} />
 
                         <ResetButton reset={ImageReset} />
-                        <UploadButton />
+                        <UploadButton ServerUploadFunc={props.ServerUploadFunc} />
                     </>
                 )}
             </Box>

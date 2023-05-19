@@ -9,7 +9,15 @@ export const getUsers = async () => {
   return response.data;
 };
 
-export const getId = async () => {
-  const response = await api.get('/getId');
-  return response.data;
-};
+export const upload =async (ImageFile: File) => {
+  const formData = new FormData();
+  formData.append('image', ImageFile);
+  const response = await api.post('/upload', {
+    body: formData
+  })
+  .then(function (response) {
+    console.log(response.data);
+  })
+  
+  return response;
+}

@@ -1,11 +1,34 @@
 import sqlite3 from 'sqlite3';
+import multer from 'multer';
 import express from 'express';
 import cors from 'cors';
 
 const app = express();
 app.use(cors());
 
+let id = 0;
 const db: sqlite3.Database= new sqlite3.Database('./my.db');
+
+// 使用するストレージエンジンを設定
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads'); // アップロード先のディレクトリ
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+    //cb(null, (new Date().getTime()).toString(16) + id);
+    id += 1;
+  }
+});
+const upload = multer({ storage });
+
+//uploadsルート
+app.use('/uploads', express.static('uploads'));
+app.post('/upload', upload.single('image'), async (req, res, body) => {
+  console.log(req.body)
+});
+
+
 
 app.get('/getdata', async (req, res) => {
   db.all('SELECT * FROM Data', (err, rows) => {
@@ -16,11 +39,6 @@ app.get('/getdata', async (req, res) => {
       res.json(rows);
   });
 });
-
-let id = 0;
-app.get('/getId', (req, res) => {
-  res.json({id: (new Date().getTime()).toString(16) + id});
-})
 
 const PortNum: number = 3000;
 // サーバを起動
