@@ -53,13 +53,22 @@ app.post('/upload', upload.single('image'), async (req, res) => {
   });
 });
 
-app.get('/getdata', async (req, res) => {
-  db.all('SELECT * FROM Data', (err, rows) => {
-      if (err) {
-        res.statusCode = 500;
-        res.end();
-      }
-      res.json(rows);
+app.post('/authImage', upload.single('id'), async (req, res) => {
+  db.all(`SELECT url FROM Data WHERE id = '${req.body.id}' AND password = '${req.body.password}'` ,
+  (err, rows: any) => {
+    if (err) {  //何かエラーをはいた場合
+      res.statusCode = 500;
+      res.end();
+    }
+    
+    if(rows.length != 0) {
+      //idとpasswordが一致した場合
+      res.send({ src: rows[0].url });
+    }else {
+      //不一致
+      res.status(400).send('Id or Password does not match');  //error
+    }
+
   });
 });
 
@@ -78,3 +87,9 @@ app.listen(PortNum, () => {
   
   console.log(`Start the server at Port${PortNum}`);
 });
+
+type DataType = {
+  id: string,
+  url: string,
+  password: string
+}

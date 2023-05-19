@@ -4,6 +4,7 @@
 
 #Header {
     position: fixed;
+    z-index: 2;
     top: 0px;
     left: 5vw;
     width: 90vw;

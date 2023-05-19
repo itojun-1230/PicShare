@@ -1,0 +1,36 @@
+#Certification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 80px;
+}
+
+.browseZone {
+    position: relative;
+    
+    width: 60vw;
+    height: 60vw;
+    margin: 100px;
+
+    background-color: rgb(200, 200, 200);
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgb(100, 100, 100);
+}
+
+.browseZoneBox {
+    width: 55vw;
+    height: 55vw;
+    border: 5px dotted rgb(75, 75, 75);
+
+    margin: 2vw auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.browseZoneBox img {
+    max-width: 100%;
+    max-height: 100%;
+}

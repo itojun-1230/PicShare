@@ -5,9 +5,33 @@ const api = axios.create({
   baseURL: URL, // Node.jsアプリケーションのポート番号に合わせて変更
 });
 
-export const getUsers = async () => {
-  const response = await api.get('/getdata');
-  return response.data;
+export const AuthImage = async (
+  id: string, 
+  password: string,
+  setImgSrc: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
+  if(id == "") {
+    alert("Idを入力してください");
+    return;
+  }
+  const formData = new FormData();
+  formData.append('id', id);
+  formData.append('password', password);
+
+  fetch(`${URL}/authImage`, {
+    method: 'POST',
+    body: formData
+  }).then(response => {
+    if (response.ok) {
+      return response.text();
+    }
+    throw new Error('Network response was not ok.');
+  }).then(data => {
+    const JsonData = JSON.parse(data);
+    setImgSrc(JsonData.src);
+  }).catch(error => {
+    alert(error);
+  });
 };
 
 
