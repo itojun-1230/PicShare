@@ -28,6 +28,7 @@ export const AuthImage = async (
     throw new Error('Network response was not ok.');
   }).then(data => {
     const JsonData = JSON.parse(data);
+    
     setImgSrc(JsonData.src);
   }).catch(error => {
     alert(error);
@@ -48,10 +49,10 @@ export const upload = async (ImageFile: File, Id: string, Password: string) => {
     if (response.ok) {
       return response.text();
     }
+    
     throw new Error('Network response was not ok.');
   }).then(data => {
-    const JsonData = JSON.parse(data);
-    console.log(JsonData)
+    alert("Success: Image uploaded!")
   }).catch(error => {
     alert(error);
   });
