@@ -5,12 +5,14 @@ import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
 import { Box } from "@mui/material";
 //component
 import { UploadZoneBox } from "./UploadZoneBox";
+import { ImageButton } from "./ImageButton";
 //css
 import styles from '../main.module.css';
 
 export const UploadZone = (props: {
     Img: File | null,
-    UploadFunc: Function
+    UploadFunc: Function,
+    setUpload: React.Dispatch<React.SetStateAction<File | null>>
 }) => {
 
     function onDrop<T extends File>(acceptedFiles: T[], fileRejections: FileRejection[], event: DropEvent) { //画像Drop
@@ -39,6 +41,11 @@ export const UploadZone = (props: {
         }
     }, [props.Img]);
 
+    const ImageReset = () => {  //画像リセット
+        props.setUpload(null);
+        setImgSrc(null);
+    }
+
 
     return (
         <Box className={styles.uploadZone}
@@ -50,7 +57,11 @@ export const UploadZone = (props: {
                     <UploadZoneBox UploadFunc={props.UploadFunc} />
                 )}
                 {ImgSrc && (
-                    <img src={ImgSrc} />
+                    <>
+                        <img src={ImgSrc} />
+
+                        <ImageButton reset={ImageReset} />
+                    </>
                 )}
             </Box>
         </Box>

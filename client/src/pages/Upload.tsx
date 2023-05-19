@@ -28,8 +28,7 @@ export const UploadPage = () => {
   return (
     <Box className={styles.mainContents}>
       {OnlyValue}
-      <UploadZone Img={UploadImage} UploadFunc={ImageUpload} />
-      <img></img>
+      <UploadZone Img={UploadImage} setUpload={setUploadImage} UploadFunc={ImageUpload} />
     </Box>
   );
 };

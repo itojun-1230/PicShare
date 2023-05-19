@@ -6,7 +6,12 @@ import { getUsers } from '../api/data';
 import { UserType } from '../Type';
 
 export const BrowsePage = () => {
+  const [Data, setData] = useState<any | null>(null);
+  useEffect(() => {
+    getUsers().then((data) => setData(data));
+  }, []);
+
   return (
-    <p>a</p>
+    <p>{JSON.stringify(Data)}</p>
   )
 };

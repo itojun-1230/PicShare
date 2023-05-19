@@ -9,7 +9,7 @@ export const RouterConfig = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/upload" element={<UploadPage />} />
+          <Route path="" element={<UploadPage />} />
           <Route path="/browse" element={<BrowsePage />} />
         </Routes>
       </BrowserRouter>
