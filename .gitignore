@@ -12,6 +12,8 @@ dist
 dist-ssr
 server/uploads/*
 !server/uploads/.gitkeep
+server/pages/*
+!server/pages/.gitkeep
 *.local
 
 # Editor directories and files

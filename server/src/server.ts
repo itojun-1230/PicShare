@@ -3,6 +3,7 @@ import sqlite3 from 'sqlite3';
 import multer from 'multer';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 
 const app = express();
 app.use(cors());
@@ -72,6 +73,11 @@ app.post('/authImage', upload.single('id'), async (req, res) => {
   });
 });
 
+app.use(express.static(path.join(__dirname, '../../pages')));
+// すべてのリクエストをindex.htmlにルーティング
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../pages', 'index.html'));
+});
 const PortNum: number = 3000;
 // サーバを起動
 app.listen(PortNum, () => {
@@ -87,9 +93,3 @@ app.listen(PortNum, () => {
   
   console.log(`Start the server at Port${PortNum}`);
 });
-
-type DataType = {
-  id: string,
-  url: string,
-  password: string
-}
