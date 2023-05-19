@@ -8,7 +8,7 @@ import { UploadZoneBox } from "./UploadZoneBox";
 import { ResetButton } from "./ResetButton";
 import { UploadButton } from "./UploadButton";
 //css
-import styles from '../main.module.css';
+import styles from '../../main.module.css';
 
 export const UploadZone = (props: {
     Img: File | null,

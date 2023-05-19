@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 //api
 import { upload } from '../api/data';
 //component
-import { UploadZone } from './component/UploadZone';
+import { UploadZone } from './component/Upload/UploadZone';
 //css
 import styles from './main.module.css';
 
