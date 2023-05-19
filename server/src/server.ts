@@ -6,7 +6,6 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 
-let id = 0;
 const db: sqlite3.Database= new sqlite3.Database('./my.db');
 
 // 使用するストレージエンジンを設定
@@ -15,20 +14,25 @@ const storage = multer.diskStorage({
     cb(null, './uploads'); // アップロード先のディレクトリ
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-    //cb(null, (new Date().getTime()).toString(16) + id);
-    id += 1;
+    let fileName = "";
+    for(let i = 0; i < file.originalname.length;i++)fileName += file.originalname.codePointAt(i).toString(16);
+
+    cb(null, `${(new Date().getTime()).toString(16)}-${fileName}.png`);
   }
 });
 const upload = multer({ storage });
 
 //uploadsルート
 app.use('/uploads', express.static('uploads'));
-app.post('/upload', upload.single('image'), async (req, res, body) => {
-  console.log(req.body)
+app.post('/upload', upload.single('image'), async (req, res) => {
+  const file = req.file;
+  if (!file) {  //fileがない場合
+    res.status(400).send('画像がアップロードされていません');
+    return;
+  }
+  const url = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`; //画像へのURL生成
+  res.send({ url });
 });
-
-
 
 app.get('/getdata', async (req, res) => {
   db.all('SELECT * FROM Data', (err, rows) => {

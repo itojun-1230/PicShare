@@ -10,7 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-uploads
+server/uploads/*
+!server/uploads/.gitkeep
 *.local
 
 # Editor directories and files

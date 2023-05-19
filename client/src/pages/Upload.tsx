@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react';
 //mui
 import { Box } from '@mui/material';
 //api
-import { upload } from '../api/data';
+import { getId, upload } from '../api/data';
 //component
 import { UploadZone } from './component/UploadZone';
 //css
 import styles from './main.module.css';
 
 export const UploadPage = () => {
+  useEffect(() => {
+    getId();
+  },[]);
 
   const [UploadImage, setUploadImage] = useState<File | null>(null)
   const ImageUpload = (image: File) => {
