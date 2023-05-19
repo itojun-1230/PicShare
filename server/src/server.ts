@@ -43,6 +43,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     if(rows.length == 0) {
       //id重複がない場合
       db.run(`INSERT INTO Data(id, url, password) VALUES('${req.body.id}','${url}','${req.body.password}')`);
+      console.info(`Success: Image uploaded! id ${req.body.id}`)
       res.send({ url });
     }else {
       //id重複した場合
