@@ -1,9 +1,12 @@
 import { RouterConfig } from './Router';
+import { Header } from './pages/component/Header/Header';
 
 const App = () => {
   return (
-    
-    <RouterConfig />
+    <>
+      <Header />
+      <RouterConfig />
+    </>
   )
 }
 

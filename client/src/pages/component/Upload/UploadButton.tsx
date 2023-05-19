@@ -83,7 +83,7 @@ export const UploadButton = (props: {
                     }
                 }}>
                 <FileUploadIcon />
-                画像をアップロード
+                UPLOAD
             </Button>
         </ Box>
     )

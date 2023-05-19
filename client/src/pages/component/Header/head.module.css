@@ -1,0 +1,25 @@
+:root {
+    --height: 65px;
+}
+
+#Header {
+    position: fixed;
+    top: 0px;
+    left: 5vw;
+    width: 90vw;
+    height: var(--height);
+
+    background-color: rgb(80, 80, 80);
+}
+
+#HeaderButton {
+    width: 25%;
+    height: var(--height);
+
+    color: aliceblue;
+    border-radius: 0px;
+
+    border-style: solid;
+    border-color: rgb(200, 77, 150);
+    border-left-width: 2px;
+}
