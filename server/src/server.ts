@@ -1,3 +1,4 @@
+import fs from'fs';
 import sqlite3 from 'sqlite3';
 import multer from 'multer';
 import express from 'express';
@@ -8,7 +9,7 @@ app.use(cors());
 
 const db: sqlite3.Database= new sqlite3.Database('./my.db');
 
-// 使用するストレージエンジンを設定
+// ストレージエンジン
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads'); // アップロード先のディレクトリ
@@ -27,11 +28,28 @@ app.use('/uploads', express.static('uploads'));
 app.post('/upload', upload.single('image'), async (req, res) => {
   const file = req.file;
   if (!file) {  //fileがない場合
-    res.status(400).send('画像がアップロードされていません');
+    res.status(400).send('File does not exist');
     return;
   }
-  const url = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`; //画像へのURL生成
-  res.send({ url });
+  //同一のidを求めるSQL文
+  db.all(`SELECT id FROM Data WHERE id = '${req.body.id}'` ,(err, rows) => {
+    if (err) {  //何かエラーをはいた場合
+      res.statusCode = 500;
+      res.end();
+    }
+
+    //画像へのURL生成
+    const url = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+    if(rows.length == 0) {
+      //id重複がない場合
+      db.run(`INSERT INTO Data(id, url, password) VALUES('${req.body.id}','${url}','${req.body.password}')`);
+      res.send({ url });
+    }else {
+      //id重複した場合
+      fs.unlinkSync(`uploads/${file.filename}`);  //画像削除
+      res.status(409).send('ID already exists');  //error
+    }
+  });
 });
 
 app.get('/getdata', async (req, res) => {
@@ -47,8 +65,15 @@ app.get('/getdata', async (req, res) => {
 const PortNum: number = 3000;
 // サーバを起動
 app.listen(PortNum, () => {
-  console.log(`Start the server at Port${PortNum}`);
+  fs.readdir('./uploads',(err, files) => {
+    files.forEach(e => {
+      if(e != '.gitkeep') { //.gitkeep以外のファイルを削除
+        fs.unlinkSync(`uploads/${e}`);
+      }
+    });
+  });
 
-  db.run('DELETE FROM Data');
-  db.run("INSERT INTO Data(id, url, password) VALUES(0, 'hoge', 'fuga')");
+  db.run('DELETE FROM Data'); //データベースリセット
+  
+  console.log(`Start the server at Port${PortNum}`);
 });

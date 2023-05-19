@@ -6,9 +6,9 @@ import { Box } from "@mui/material";
 //component
 import { UploadZoneBox } from "./UploadZoneBox";
 import { ResetButton } from "./ResetButton";
+import { UploadButton } from "./UploadButton";
 //css
 import styles from '../main.module.css';
-import { UploadButton } from "./UploadButton";
 
 export const UploadZone = (props: {
     Img: File | null,

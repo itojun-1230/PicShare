@@ -43,6 +43,17 @@
     max-height: 100%;
 }
 
+.UploadOption {
+    position: absolute;
+    max-width: 300px;
+    width: 50%;
+
+    bottom: 5%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .ImageButtonBox {
     position: absolute;
     right: 3%;

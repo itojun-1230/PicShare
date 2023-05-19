@@ -10,14 +10,13 @@ export const getUsers = async () => {
   return response.data;
 };
 
-export const getId = async () => {
-  await api.get('/init');
-};
 
-export const upload = async (ImageFile: File) => {
+export const upload = async (ImageFile: File, Id: string, Password: string) => {
   const formData = new FormData();
   formData.append('image', ImageFile);
-  formData.append('value', "a");
+  formData.append('id', Id);
+  formData.append('password', Password);
+
   fetch(`${URL}/upload`, {
     method: 'POST',
     body: formData
@@ -30,7 +29,6 @@ export const upload = async (ImageFile: File) => {
     const JsonData = JSON.parse(data);
     console.log(JsonData)
   }).catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
+    alert(error);
   });
-  //return response;
 }

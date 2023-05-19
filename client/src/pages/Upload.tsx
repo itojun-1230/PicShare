@@ -3,17 +3,13 @@ import { useState, useEffect } from 'react';
 //mui
 import { Box } from '@mui/material';
 //api
-import { getId, upload } from '../api/data';
+import { upload } from '../api/data';
 //component
 import { UploadZone } from './component/UploadZone';
 //css
 import styles from './main.module.css';
 
 export const UploadPage = () => {
-  useEffect(() => {
-    getId();
-  },[]);
-
   const [UploadImage, setUploadImage] = useState<File | null>(null)
   const ImageUpload = (image: File) => {
     if (image.size == 200000000) { //最大サイズを超えた場合
@@ -23,8 +19,12 @@ export const UploadPage = () => {
     setUploadImage(image);
   }
 
-  const ServerUploadFunc = () => {
-    upload(UploadImage!);
+  const ServerUploadFunc = (Id: string, Password: string) => {
+    if(Id != "") {
+      upload(UploadImage!, Id, Password);
+    }else {
+      alert("Idを入力してください")
+    }
   }
 
   return (
